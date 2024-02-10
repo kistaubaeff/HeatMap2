@@ -98,15 +98,13 @@ public class HW1Mapper extends Mapper<LongWritable, Text, Text, IntWritable> {
         String[] info = line.split(" "); 
         int x = Integer.parseInt(info[0]);
         int y = Integer.parseInt(info[1]);
-
-        word.set(getRegion(x, y, areasMap));
-        context.write(word, ONE);
-        // UserAgent userAgent = UserAgent.parseUserAgentString(line);
-        // if (userAgent.getBrowser() == Browser.UNKNOWN) {
-        //     context.getCounter(CounterType.MALFORMED).increment(1);
-        // } else {
-        //     word.set(userAgent.getBrowser().getName());
-        //     context.write(word, ONE);
-        // }
+        String result = getRegion(x, y, areasMap);
+        
+        if (result == "unknown") {
+            context.getCounter(CounterType.MALFORMED).increment(1);
+        } else {
+            word.set(result);
+            context.write(word, ONE);
+        }
     }
 }

@@ -23,7 +23,6 @@ public class MapReduceApplication {
         if (args.length < 2) {
             throw new RuntimeException("You should specify input and output folders!");
         }
-        final String NAME_NODE = "hdfs://localhost:9000";
         Configuration conf = new Configuration();
         // задаём выходной файл, разделенный запятыми - формат CSV в соответствии с заданием
         conf.set("mapreduce.output.textoutputformat.separator", ",");
