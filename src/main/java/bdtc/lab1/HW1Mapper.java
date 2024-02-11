@@ -23,15 +23,16 @@ public class HW1Mapper extends Mapper<LongWritable, Text, Text, IntWritable> {
 
     private static final IntWritable ONE = new IntWritable(1);
     private Text word = new Text();
+
     private Map<String, String> areasMap = new HashMap<>();
 
     /**
-        Returns the region name for given coordinates (x, y) in the regions map.
-        @param x The x-coordinate
-        @param y The y-coordinate
-        @param regions A map of region names and their boundaries
-        @return The region name or "unknown" if the point is not within any region
-    */
+     * Returns the region name for given coordinates (x, y) in the regions map.
+     * @param x The x-coordinate
+     * @param y The y-coordinate
+     * @param regions A map of region names and their boundaries
+     * @return The region name or "unknown" if the point is not within any region
+     */
     public static String getRegion(int x, int y, Map<String, String> regions) {
         for (String regionName : regions.keySet()) {
             String[] points = regions.get(regionName).split(" ");
@@ -47,7 +48,14 @@ public class HW1Mapper extends Mapper<LongWritable, Text, Text, IntWritable> {
         return "unknown";
     }
 
-    protected void setup(Context context) throws IOException {
+    /**
+     * Sets up the areas map from cache files or initializes default values.
+     * @param context The context object containing cache files
+     * @throws IOException throws IOException
+     * @throws InterruptedException throws InterruptedException
+     */
+    @Override
+    protected void setup(Context context) throws IOException, InterruptedException {
         URI[] uris = context.getCacheFiles();
         if (uris != null && uris.length > 0) {
             Path areas = new Path(uris[0].toString());
@@ -64,10 +72,6 @@ public class HW1Mapper extends Mapper<LongWritable, Text, Text, IntWritable> {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-
-            
-
 
         } else {
             areasMap.put("lower_right", "500 0 1000 750");

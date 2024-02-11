@@ -19,13 +19,15 @@ import java.util.Map;
  * выдаёт суммарное количество пользователей по браузерам.
  */
 public class HW1Reducer extends Reducer<Text, IntWritable, Text, IntWritable> {
+
     
     /**
-     * Reduce function counts amount of each word.
-     * @param key Key
-     * @param values Values
-     * @param context Hadoop Reducer context
+     * Sets up the ranges map from cache files or initializes default values.
+     * @param context The context object containing cache files
+     * @throws IOException throws IOException
+     * @throws InterruptedException throws InterruptedException
      */
+    @Override
     protected void setup(Context context) throws IOException, InterruptedException {
         URI[] uris = context.getCacheFiles();
         if (uris != null && uris.length > 0) {
@@ -55,7 +57,9 @@ public class HW1Reducer extends Reducer<Text, IntWritable, Text, IntWritable> {
         }
 
     }
-
+    /**
+     * A custom pair class with two integer keys.
+     */
     public class CustomPair {
         private int key1;
         private int key2;
@@ -81,6 +85,12 @@ public class HW1Reducer extends Reducer<Text, IntWritable, Text, IntWritable> {
 
     private Map<String, CustomPair> tempRange = new HashMap<>();
 
+    /**
+     * Reduce function counts amount of each word.
+     * @param key Key
+     * @param values Values
+     * @param context Hadoop Reducer context
+     */
     @Override
     protected void reduce(
         final Text key,
@@ -99,11 +109,12 @@ public class HW1Reducer extends Reducer<Text, IntWritable, Text, IntWritable> {
                 temperature = it;
             }
         } 
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(key.toString());
-        stringBuilder.append(",");
-        stringBuilder.append(temperature);
-        Text result = new Text(stringBuilder.toString());
+
+        Text result = new Text(new StringBuilder()
+                                    .append(key.toString())
+                                    .append(",")
+                                    .append(temperature)
+                                    .toString());
         context.write(result, new IntWritable(sum));
         
     }
