@@ -25,6 +25,13 @@ public class HW1Mapper extends Mapper<LongWritable, Text, Text, IntWritable> {
     private Text word = new Text();
     private Map<String, String> areasMap = new HashMap<>();
 
+    /**
+        Returns the region name for given coordinates (x, y) in the regions map.
+        @param x The x-coordinate
+        @param y The y-coordinate
+        @param regions A map of region names and their boundaries
+        @return The region name or "unknown" if the point is not within any region
+    */
     public static String getRegion(int x, int y, Map<String, String> regions) {
         for (String regionName : regions.keySet()) {
             String[] points = regions.get(regionName).split(" ");
@@ -40,11 +47,10 @@ public class HW1Mapper extends Mapper<LongWritable, Text, Text, IntWritable> {
         return "unknown";
     }
 
-    public void setup(Context context) throws IOException {
+    protected void setup(Context context) throws IOException {
         URI[] uris = context.getCacheFiles();
         if (uris != null && uris.length > 0) {
             Path areas = new Path(uris[0].toString());
-            Path ranges = new Path(uris[1].toString());
             FileSystem fs = FileSystem.get(context.getConfiguration());
             try (BufferedReader br = new BufferedReader(new InputStreamReader(fs.open(areas)))) {
                 String line;
@@ -59,18 +65,7 @@ public class HW1Mapper extends Mapper<LongWritable, Text, Text, IntWritable> {
                 e.printStackTrace();
             }
 
-            try (BufferedReader br = new BufferedReader(new InputStreamReader(fs.open(ranges)))) {
-                String line;
-                line = br.readLine();
-                while (line != null && line != "") {
-                    String[] arr = line.split(" ");
-                    areasMap.put(arr[0], line.substring(arr[0].length() + 1));
-                    line = br.readLine();
-                }
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
             
 
 

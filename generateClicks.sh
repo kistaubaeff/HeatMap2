@@ -3,7 +3,7 @@
 rm -rf input
 mkdir input
 
-for i in {1..200}; do
+for i in {1..400}; do
   x=$((RANDOM % 1000))
   y=$((RANDOM % 1500))
   userId=$((RANDOM % 1000))
@@ -12,7 +12,7 @@ for i in {1..200}; do
 
 done
 
-for i in {1..200}; do
+for i in {1..400}; do
   x=$((RANDOM % 1120)) # some malformed points
   y=$((RANDOM % 1650))
   userId=$((RANDOM % 1000))
@@ -21,7 +21,7 @@ for i in {1..200}; do
 
 done
 
-for i in {1..200}; do
+for i in {1..400}; do
   x=$((RANDOM % 1000))
   y=$((RANDOM % 1500))
   userId=$((RANDOM % 1000))

@@ -46,7 +46,11 @@ public class MapReduceTest {
         values.add(new IntWritable(1));
         reduceDriver
                 .withInput(new Text(testInfo), values)
-                .withOutput(new Text(testInfo), new IntWritable(2))
+                .withOutput(new Text(new StringBuilder()
+                .append(testInfo)
+                .append(",")
+                .append("low")
+                .toString()), new IntWritable(2))
                 .runTest();
     }
 
@@ -55,7 +59,7 @@ public class MapReduceTest {
         mapReduceDriver
                 .withInput(new LongWritable(), new Text(testInfo))
                 .withInput(new LongWritable(), new Text(testInfo))
-                .withOutput(new Text("lower_left"), new IntWritable(2))
+                .withOutput(new Text("lower_left,low"), new IntWritable(2))
                 .runTest();
     }
 }
