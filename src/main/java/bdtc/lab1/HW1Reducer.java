@@ -150,7 +150,7 @@ public class HW1Reducer extends Reducer<Text, IntWritable, Text, IntWritable> {
             if (sum >= current.getKey1() && sum <= current.getKey2()) {
                 temperature = it;
             }
-        } 
+        }
 
         Text result = new Text(new StringBuilder()
                                     .append(key.toString())

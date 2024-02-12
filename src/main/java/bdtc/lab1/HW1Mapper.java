@@ -29,7 +29,6 @@ public class HW1Mapper extends Mapper<LongWritable, Text, Text, IntWritable> {
 
     /**
      * Returns the region name for given coordinates (x, y) in the regions map.
-     * 
      * @param x       The x-coordinate
      * @param y       The y-coordinate
      * @param regions A map of region names and their boundaries
@@ -54,7 +53,6 @@ public class HW1Mapper extends Mapper<LongWritable, Text, Text, IntWritable> {
 
     /**
      * Sets up the areas map from cache files or initializes default values.
-     * 
      * @param context The context object containing cache files
      * @throws IOException          throws IOException
      * @throws InterruptedException throws InterruptedException
@@ -89,7 +87,6 @@ public class HW1Mapper extends Mapper<LongWritable, Text, Text, IntWritable> {
 
     /**
      * Map function makes mapping by words.
-     * 
      * @param key     Keyt
      * @param value   Value
      * @param context Hadoop Mapper context
