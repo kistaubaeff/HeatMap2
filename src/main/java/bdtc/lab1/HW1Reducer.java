@@ -144,8 +144,7 @@ public class HW1Reducer extends Reducer<Text, IntWritable, Text, IntWritable> {
             sum += values.iterator().next().get();
         }
         String temperature = "unknown";
-        for (String it : tempRange.keySet())
-        {
+        for (String it : tempRange.keySet()) {
             CustomPair current = tempRange.get(it);
             if (sum >= current.getKey1() && sum <= current.getKey2()) {
                 temperature = it;
