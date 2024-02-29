@@ -1,6 +1,9 @@
 package bdtc.lab1;
 
 import lombok.extern.log4j.Log4j;
+
+import java.net.URI;
+
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
@@ -28,6 +31,8 @@ public class MapReduceApplication {
         job.setJarByClass(MapReduceApplication.class);
         job.setMapperClass(HW1Mapper.class);
         job.setReducerClass(HW1Reducer.class);
+        job.addCacheFile(new URI("/input_handbooks/handbookAreas"));
+        job.addCacheFile(new URI("/input_handbooks/handbookTemps"));
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
         job.setOutputFormatClass(TextOutputFormat.class);
