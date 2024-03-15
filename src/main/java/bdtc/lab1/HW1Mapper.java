@@ -74,7 +74,6 @@ public class HW1Mapper extends Mapper<LongWritable, Text, Text, IntWritable> {
                 }
 
             } catch (Exception e) {
-                
             }
 
         } else {
